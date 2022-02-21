@@ -48,7 +48,7 @@ In the field of Computer Vision, image datasets play one of the important roles.
    
 ## Do you want to know more?
 You might get useful information about other valuable tools along with their implementations in the [example.pdf](https://github.com/SamandarYokubov/image_dataset_analysis/blob/main/example/example.pdf) file.
-In addition, you may use [example.ipynb](https://github.com/SamandarYokubov/image_dataset_analysis/blob/main/example.ipynb) to make analysis of your image datasets. By the way, don't forget to change the path of dataset's directory!
+In addition, you may use [example.ipynb](https://github.com/SamandarYokubov/image_dataset_analysis/blob/main/example.ipynb) to make analysis of your image datasets. By the way, don't forget to change the path of dataset's directory to your own one!
 
 ##  Any questions :question:
 Feel free to ask or express your ideas|suggestions in [issues](https://github.com/SamandarYokubov/image_dataset_analysis/issues) section.
