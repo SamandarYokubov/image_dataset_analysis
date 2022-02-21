@@ -1,6 +1,49 @@
 # Image dataset analysis tools
 
-### In the field of Computer Vision, image datasets play one of the important roles. Everyone, who begin his/her research in the aforementioned sphere, initially, need to choose model and set of data, appropriate for the given CV task. Usually, it is useful to make database analysis (ex. analyze proportion of classes with given number of images or get classes with n images) in order to take a closer look at data. In this repository, you might find useful tools to perform image dataset analysis.
+#### In the field of Computer Vision, image datasets play one of the important roles. Everyone, who begin his/her research in the aforementioned sphere, initially, need to choose model and set of data, appropriate for the given CV task. Usually, it is useful to make analysis (ex. analyze proportion of classes with given number of images or get classes with n images) in order to take a closer look at data. In this repository, you might find useful tools to perform image dataset analysis.
 
+
+## Let's analyze the image dataset
+
+>The [LFW (Labelled Faces in the Wild)](http://vis-www.cs.umass.edu/lfw/) face database was used as an example dataset
+
+
+1) First of all, it is necessary to create an instance of ImageDataset class and pass the path of dataset directory as an argument.
+
+   >Following structure of dataset directory is required to analyze it appropriately:
+    - image_dataset:
+        - class 1:
+            - image 1;
+            - image 2;
+            - ....
+        - class 2
+        - class 3
+        - .....
+   
+   
+   ```   
+   from image_dataset_analysis import ImageDataset
+   lfw = ImageDataset("LFW/")   
+   ```
+2) Now, we can get some useful information about dataset by calling the following method:
+   
+   ```
+   lfw.analyze()
+   ```
+   
+   Output:
+   
+   ```
+   Number of images in image dataset: 13214
+   Number of classes in image dataset: 5734
+   Mean number of images per class: 2
+   Minimum number of images per class: 1
+   Maximum number of images per class: 530
+   Number of classes with only 1 image : 4057
+   Number of classes with only 2 images : 777
+   Number of classes with only 3 images : 290
+   Remaining number of classes : 610
+   ```
+   
 ### I highly recommend to open [example](https://github.com/SamandarYokubov/image_dataset_analysis/blob/main/example.ipynb) file in order to see analysis tools in action and learn how to apply them for your image dataset.
 
