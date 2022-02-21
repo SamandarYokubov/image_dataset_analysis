@@ -23,7 +23,7 @@ In the field of Computer Vision, image datasets play one of the important roles.
    
    ```   
    from image_dataset_analysis import ImageDataset
-   lfw = ImageDataset("LFW/")   
+   lfw = ImageDataset("/LFW")   
    ```
 2) Now, we can get some useful information about dataset by calling the following method:
    
