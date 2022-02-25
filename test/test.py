@@ -33,6 +33,10 @@ class TestImageDatasetAnalyzer(unittest.TestCase):
         self.assertEqual(class_info["images_number"], 530)
         self.assertEqual(class_info["images"][0], 'George_W_Bush_0001.jpg')
 
+    def test_images_formats(self):
+        report = self.image_dataset.images_formats()
+        self.assertEqual(report, "Formats of images in dataset:\n\tjpg: 13213 (100.0%)")
+
 if __name__ == '__main__':
     unittest.main()
 

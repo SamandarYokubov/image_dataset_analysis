@@ -1,3 +1,4 @@
+
 import os
 import numpy as np
 from tqdm import tqdm
@@ -25,6 +26,7 @@ class ImageDataset:
         self.image_dataset_content_info = {}
         self.number_of_classes = 0
         self.number_of_images = 0
+        self.images_format = {}
         self._get_content_info()
 
 
@@ -43,7 +45,22 @@ class ImageDataset:
             assert len(image_images) > 0, f"Class with zero images is found, class: {image_images_class}"
             self.number_of_images += len(image_images)
             self.image_dataset_content_info[image_images_class] = {"images_number": len(image_images), "images": image_images}
-    
+            for image in image_images:
+                image = image.split(".")
+                image_format = image[-1]
+                if image_format not in list(self.images_format.keys()):
+                    self.images_format[image_format] = 0
+                else:
+                    self.images_format[image_format] += 1
+            
+
+    def images_formats(self):
+        '''Get information about formats of images'''
+        report = "Formats of images in dataset:"
+        for format_type, quantity in self.images_format.items():
+            report += "\n"
+            report += f"\t{format_type}: {quantity} ({np.ceil((quantity/self.number_of_images)*100)}%)"
+        return report
 
     def mean_images_per_class(self):
 
@@ -248,6 +265,7 @@ class ImageDataset:
         print(f"Mean number of images per class: {self.mean_images_per_class()}")
         print(f"Minimum number of images per class: {self.min_images_per_class()}")
         print(f"Maximum number of images per class: {self.max_images_per_class()}")
+        print(self.images_formats())
         self.proportion_of_classes_with_n_images(images_number, plot_pie_chart = True)   
     
     
