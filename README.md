@@ -34,15 +34,17 @@ In the field of Computer Vision, image datasets play one of the important roles.
    Output:
    
    ```
-   Number of images in image dataset: 13214
-   Number of classes in image dataset: 5734
-   Mean number of images per class: 2
-   Minimum number of images per class: 1
-   Maximum number of images per class: 530
-   Number of classes with only 1 image : 4057
-   Number of classes with only 2 images : 777
-   Number of classes with only 3 images : 290
-   Remaining number of classes : 610
+Number of images in image dataset: 13214
+Number of classes in image dataset: 5734
+Mean number of images per class: 2
+Minimum number of images per class: 1
+Maximum number of images per class: 530
+Formats of images in dataset:
+	jpg: 13213 (100.0%)
+Number of classes with only 1 images : 4057
+Number of classes with only 2 images : 777
+Number of classes with only 3 images : 290
+Remaining number of classes : 610s
    ```
    ![proportion of images](/example/images/analyze_output.png)
    
