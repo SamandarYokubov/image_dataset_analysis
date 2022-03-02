@@ -30,6 +30,9 @@ class ImageDataset:
         self._get_content_info()
 
 
+
+    def _get_image_size
+
     def _get_content_info(self):
 
         '''Get the structure info of given image dataset.'''
