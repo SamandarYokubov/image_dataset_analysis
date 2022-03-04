@@ -1,3 +1,4 @@
+from email.mime import image
 import os
 import numpy as np
 from tqdm import tqdm
@@ -30,27 +31,24 @@ class ImageDataset:
 
 
     def _get_content_info(self):
-
-        '''Get the structure info of given image dataset.'''
-
         assert os.path.isdir(self.image_dataset_path) == True, "Given directory path is not valid!"
-        image_images_classes = os.listdir(self.image_dataset_path)
-        assert len(image_images_classes) > 0 , "No data is found in given directory!"    
-        self.number_of_classes = len(image_images_classes)
+        classes = os.listdir(self.image_dataset_path)
+        assert len(classes) > 0, "No data is found in given directory!"
+        self.number_of_classes = len(classes)
         self.number_of_images = 0
         print("Analyzing dataset's content... ")
-        for image_images_class in tqdm(image_images_classes):
-            image_images = os.listdir(os.path.join(self.image_dataset_path, image_images_class))
-            assert len(image_images) > 0, f"Class with zero images is found, class: {image_images_class}"
-            self.number_of_images += len(image_images)
-            self.image_dataset_content_info[image_images_class] = {"images_number": len(image_images), "images": image_images}
-            for image in image_images:
-                image = image.split(".")
-                image_format = image[-1]
-                if image_format not in list(self.images_format.keys()):
-                    self.images_format[image_format] = 0
-                else:
-                    self.images_format[image_format] += 1
+        for image_class in tqdm(classes):
+            image_class_path = os.path.join(self.image_dataset_path, image_class)
+            assert image_class not in list(self.image_dataset_content_info.keys()), f"Class {image_class} has duplicate!"
+            self.image_dataset_content_info[image_class] = {}
+            for image_name in os.listdir(image_class_path):
+                image_info = Image.open(os.path.join(image_class_path, image_name))
+                self.image_dataset_content_info[image_class][image_name] = {"format":image_info.format,
+                                                                            "mode":image_info.mode,
+                                                                            "size":image_info.size}
+                image_info.close()
+
+
             
 
     def images_formats(self):
