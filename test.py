@@ -35,7 +35,15 @@ class TestImageDatasetAnalyzer(unittest.TestCase):
 
     def test_images_formats(self):
         report = self.image_dataset.images_formats()
-        self.assertEqual(report, "Formats of images in dataset:\n\tjpg: 13213 (100.0%)")
+        self.assertEqual(report, "Formats of images in dataset:\n\tJPEG: 13213 (100.0%)")
+
+    def test_images_modes(self):
+        report = self.image_dataset.images_modes()
+        self.assertEqual(report, "Modes of images in dataset:\n\tRGB: 13213 (100.0%)")
+    
+    def test_images_sizes(self):
+        report = self.image_dataset.images_sizes()
+        self.assertEqual(report, "Sizes of images in dataset:\n\t(128, 128): 13213 (100.0%)")
 
 if __name__ == '__main__':
     unittest.main()
