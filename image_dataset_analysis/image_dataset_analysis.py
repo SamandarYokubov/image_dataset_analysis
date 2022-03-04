@@ -26,6 +26,8 @@ class ImageDataset:
         self.number_of_classes = 0
         self.number_of_images = 0
         self.images_format = {}
+        self.images_mode = {}
+        self.images_size = {}
         self._get_content_info()
 
 
@@ -34,23 +36,37 @@ class ImageDataset:
         '''Get the structure info of given image dataset.'''
 
         assert os.path.isdir(self.image_dataset_path) == True, "Given directory path is not valid!"
-        image_images_classes = os.listdir(self.image_dataset_path)
-        assert len(image_images_classes) > 0 , "No data is found in given directory!"    
-        self.number_of_classes = len(image_images_classes)
+        classes = os.listdir(self.image_dataset_path)
+        assert len(classes) > 0 , "No data is found in given directory!"    
+        self.number_of_classes = len(classes)
         self.number_of_images = 0
         print("Analyzing dataset's content... ")
-        for image_images_class in tqdm(image_images_classes):
-            image_images = os.listdir(os.path.join(self.image_dataset_path, image_images_class))
-            assert len(image_images) > 0, f"Class with zero images is found, class: {image_images_class}"
-            self.number_of_images += len(image_images)
-            self.image_dataset_content_info[image_images_class] = {"images_number": len(image_images), "images": image_images}
-            for image in image_images:
-                image = image.split(".")
-                image_format = image[-1]
-                if image_format not in list(self.images_format.keys()):
-                    self.images_format[image_format] = 0
+        for images_class in tqdm(classes):
+            class_path = os.path.join(self.image_dataset_path, images_class)
+            images = os.listdir(class_path)
+            assert len(images) > 0, f"Class {images_class} is empty!"
+            self.number_of_images += len(images)
+            self.image_dataset_content_info[images_class] = {}
+            self.image_dataset_content_info[images_class]["images_number"] = len(images)
+            self.image_dataset_content_info[images_class]["images"] = images
+            for image in images:
+                image_info = Image.open(os.path.join(class_path, image))
+                if image_info.format not in list(self.images_format.keys()):
+                    self.images_format[image_info.format] = 0
                 else:
-                    self.images_format[image_format] += 1
+                    self.images_format[image_info.format] += 1
+                
+                if image_info.mode not in list(self.images_mode.keys()):
+                    self.images_mode[image_info.mode] = 0
+                else:
+                    self.images_mode[image_info.mode] += 1
+                
+                if image_info.size not in list(self.images_size.keys()):
+                    self.images_size[image_info.size] = 0
+                else:
+                    self.images_size[image_info.size] += 1
+                
+                image_info.close()
             
 
     def images_formats(self):
@@ -60,7 +76,24 @@ class ImageDataset:
             report += "\n"
             report += f"\t{format_type}: {quantity} ({np.ceil((quantity/self.number_of_images)*100)}%)"
         return report
+    
+    def images_modes(self):
+        '''Get information about modes of images'''
+        report = "Modes of images in dataset:"
+        for mode, quantity in self.images_mode.items():
+            report += '\n'
+            report += f"\t{mode}: {quantity} ({np.ceil((quantity/self.number_of_images)*100)}%)"
+        return report
 
+    def images_sizes(self):
+        '''Get information about sizes of images'''
+        report = "Sizes of images in dataset:"
+        for size, quantity in self.images_size.items():
+            report += '\n'
+            report += f"\t{size}: {quantity} ({np.ceil((quantity/self.number_of_images)*100)}%)"
+        return report
+
+    
     def mean_images_per_class(self):
 
         '''Calculate mean amount of images per class in the given dataset.'''
@@ -265,6 +298,8 @@ class ImageDataset:
         print(f"Minimum number of images per class: {self.min_images_per_class()}")
         print(f"Maximum number of images per class: {self.max_images_per_class()}")
         print(self.images_formats())
+        print(self.images_modes())
+        print(self.images_sizes())
         self.proportion_of_classes_with_n_images(images_number, plot_pie_chart = True)   
     
     
