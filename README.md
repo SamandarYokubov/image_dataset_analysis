@@ -1,6 +1,6 @@
 # Image dataset analysis
 
-In the field of Computer Vision, image datasets play one of the important roles. Everyone, who begin his/her research in the aforementioned sphere, initially, need to choose model and set of data, appropriate for the given CV task. Usually, it is useful to make analysis (ex. analyze proportion of classes with given number of images or get classes with n images) in order to take a closer look at data. In this repository, you might find useful tools to perform image dataset analysis.
+In the field of Computer Vision, image datasets play one of the important roles. Everyone, who begins his/her research in the aforementioned sphere, initially, need to choose model and set of data, appropriate for the given CV task. Usually, it is useful to make analysis (ex. analyze proportion of classes with given number of images or get classes with n images) in order to take a closer look at data. In this repository, you might find useful tools to perform image dataset analysis.
 
 
 ## Let's analyze the image dataset
